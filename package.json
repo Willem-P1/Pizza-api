@@ -1,0 +1,25 @@
+{
+  "name": "pizza-api",
+  "version": "1.0.0",
+  "description": "KEN1520 Lab 6 code",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Willem-P1/Pizza-api.git"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "Willem Ploegstra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Willem-P1/Pizza-api/issues"
+  },
+  "homepage": "https://github.com/Willem-P1/Pizza-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
