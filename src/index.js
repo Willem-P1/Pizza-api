@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 
-const pizza = require('./routes/pizza');
-const order = require('./routes/order');
+const pizza = require('./routes/pizzaRoute');
+const order = require('./routes/orderRoute');
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
