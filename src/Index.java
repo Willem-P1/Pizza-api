@@ -10,10 +10,14 @@ import java.util.Scanner;
 
 public class Index
 {
+    public static String serverUrl = "http://localhost:";
     public static void main(String[] args) 
     {
         Scanner scan = new Scanner(System.in);
         boolean exit = false;
+        System.out.println("Please enter the port number of the server");
+        int portNum = scan.nextInt();
+        serverUrl += portNum;
         while(!exit) {
             System.out.println("Welcome to the pizza ordering client");
             System.out.println("What do you want to do?");
@@ -60,6 +64,9 @@ public class Index
                 }else if(choice == 3)
                 {
                     //cancel an order
+                    System.out.println("What is the id of the order you want to cancel");
+                    int id = scan.nextInt();
+                    cancelOrder(id);
                 }else if(choice == 4)
                 {
                     //get ETA of an order
@@ -82,7 +89,7 @@ public class Index
     public static void getPizzaData(int id)
     {
         try {
-            System.out.println(getData("http://localhost:3000/pizza/" + id));
+            System.out.println(getData(serverUrl + "/pizza/" + id, "GET"));
         }catch (IOException e) {
             System.out.println("Error connecting to the server");
         }
@@ -91,7 +98,7 @@ public class Index
     public static void getOrderData(int id)
     {
         try {
-            System.out.println(getData("http://localhost:3000/order/" + id));
+            System.out.println(getData(serverUrl + "/order/" + id, "GET"));
         }catch (IOException e) {
             System.out.println("Error connecting to the server");
         }
@@ -100,7 +107,7 @@ public class Index
     public static void getOrderETA(int id)
     {
         try {
-            System.out.println(getData("http://localhost:3000/order/deliverytime/" + id));
+            System.out.println(getData(serverUrl + "/order/deliverytime/" + id, "GET"));
         }catch (IOException e) {
             System.out.println("Error connecting to the server");
         }
@@ -109,18 +116,27 @@ public class Index
     public static void getAllPizzaData()
     {
         try {
-            System.out.println(getData("http://localhost:3000/pizza/"));
+            System.out.println(getData(serverUrl + "/pizza/", "GET"));
         }catch (IOException e) {
             System.out.println("Error connecting to the server");
         }
     }
 
-    public static String getData(String url) throws IOException
+    public static void cancelOrder(int id)
+    {
+        try {
+            getData(serverUrl + "/order/cancel/" + id, "PUT");
+        }catch (IOException e) {
+            System.out.println("Error connecting to the server");
+        }
+    }
+
+    public static String getData(String url,String method) throws IOException
     {
         String output = "";
         HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 
-        connection.setRequestMethod("GET");
+        connection.setRequestMethod(method);
         int responseCode = connection.getResponseCode();
         String response = "";
 
