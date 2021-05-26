@@ -13,9 +13,8 @@ public class Index
     {
         Scanner scan = new Scanner(System.in);
         boolean exit = false;
-        System.out.println("Please enter the port number of the server");
-        int portNum = scan.nextInt();
-        serverUrl += portNum;
+        System.out.println("Please enter address of the server");
+        serverUrl =  scan.nextLine();
         while(!exit) {
             System.out.println("Welcome to the pizza ordering client");
             System.out.println("What do you want to do?");
