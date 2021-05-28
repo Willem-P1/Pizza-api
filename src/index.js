@@ -51,15 +51,15 @@ var orders = [
     }
 ];
 
-app.get('/', (req, res) => {
+app.get('/api/v1/', (req, res) => {
     res.send('Pizza API');
 });
 
-app.get('/pizza', (req, res) => {
+app.get('/api/v1/pizza', (req, res) => {
     res.status(200).send(pizzas);
 });
 
-app.get('/pizza/:id', (req, res) => {
+app.get('/api/v1/pizza/:id', (req, res) => {
     const pizza = pizzas.find(c => c.pizza_id === parseInt(req.params.id));
     if (!pizza) {
         res.status(404).send('Pizza not found');
@@ -68,7 +68,7 @@ app.get('/pizza/:id', (req, res) => {
     res.status(200).send(pizza);
 });
 
-app.get('/order/:id', (req, res) => {
+app.get('/api/v1/order/:id', (req, res) => {
     const id = filterInt(req.params.id);
     if(isNaN(id)) {
         res.status(400).send('Invalid ID supplied');
@@ -82,7 +82,7 @@ app.get('/order/:id', (req, res) => {
     res.status(200).send(order);
 });
 
-app.get('/order/deliverytime/:id', (req, res) => {
+app.get('/api/v1/order/deliverytime/:id', (req, res) => {
     const order = orders.find(c => c.id === parseInt(req.params.id));
     if (!order) {
         res.status(404).send('Order not found');
@@ -92,7 +92,7 @@ app.get('/order/deliverytime/:id', (req, res) => {
     res.status(200).send(order);
 });
 
-app.post('/order', (req, res) => {
+app.post('/api/v1/order', (req, res) => {
     if (!req.body.pizzas || !req.body.takeaway || !req.body.payment_type || !req.body.customer_id || !req.body.delivery_address) {
         res.status(400).send("The format of the object is not valid");
         return;
@@ -113,7 +113,7 @@ app.post('/order', (req, res) => {
     res.status(200).send(order);
 });
 
-app.put('/order/cancel/:id', (req, res) => {
+app.put('/api/v1/order/cancel/:id', (req, res) => {
     const order = orders.find(c => c.id === parseInt(req.params.id));
     if (!order) {
         res.status(404).send("Order not found");

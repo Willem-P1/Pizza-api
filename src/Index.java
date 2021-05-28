@@ -131,7 +131,7 @@ public class Index
     public static void getPizzaData(int id)
     {
         try {
-            System.out.println(getData(serverUrl + "/pizza/" + id, "GET"));
+            System.out.println(getData(serverUrl + "/api/v1/pizza/" + id, "GET"));
         }catch (IOException e) {
             System.out.println("Error connecting to the server");
         }
@@ -140,7 +140,7 @@ public class Index
     public static void getOrderData(int id)
     {
         try {
-            System.out.println(getData(serverUrl + "/order/" + id, "GET"));
+            System.out.println(getData(serverUrl + "/api/v1/order/" + id, "GET"));
         }catch (IOException e) {
             System.out.println("Error connecting to the server");
         }
@@ -149,7 +149,7 @@ public class Index
     public static void getOrderETA(int id)
     {
         try {
-            System.out.println(getData(serverUrl + "/order/deliverytime/" + id, "GET"));
+            System.out.println(getData(serverUrl + "/api/v1/order/deliverytime/" + id, "GET"));
         }catch (IOException e) {
             System.out.println("Error connecting to the server");
         }
@@ -158,7 +158,7 @@ public class Index
     public static void getAllPizzaData()
     {
         try {
-            System.out.println(getData(serverUrl + "/pizza/", "GET"));
+            System.out.println(getData(serverUrl + "/api/v1/pizza/", "GET"));
         }catch (IOException e) {
             System.out.println("Error connecting to the server");
         }
@@ -167,7 +167,7 @@ public class Index
     public static void cancelOrder(int id)
     {
         try {
-            System.out.println(getData(serverUrl + "/order/cancel/" + id, "PUT"));
+            System.out.println(getData(serverUrl + "/api/v1/order/cancel/" + id, "PUT"));
         }catch (IOException e) {
             System.out.println("Error connecting to the server");
         }
@@ -176,7 +176,7 @@ public class Index
     public static void addOrder(int[] pizzas, boolean takeaway, String payment_type,int customerId, String note, String street,String city, String country, String zipcode)
     {
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(serverUrl + "/order").openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL(serverUrl + "/api/v1/order").openConnection();
 
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
