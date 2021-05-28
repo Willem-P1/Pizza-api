@@ -13,7 +13,7 @@ public class Index
     {
         Scanner scan = new Scanner(System.in);
         boolean exit = false;
-        System.out.println("Please enter address of the server");
+        System.out.println("Please enter address of the server (without / at the end of the adress)");
         serverUrl =  scan.nextLine();
         while(!exit) {
             System.out.println("Welcome to the pizza ordering client");
@@ -22,19 +22,18 @@ public class Index
             System.out.println("1. Get pizza information");
             System.out.println("2. Handle Orders ");
             System.out.println("3. Exit");
-            int action = scan.nextInt();
+            int action = getNextIntFromScanner(scan,"");
             if (action == 1) {
                 System.out.println("What information do you want?");
                 System.out.println("1. All pizza information");
                 System.out.println("2. Information of one pizza");
-                int choice = scan.nextInt();
+                int choice = getNextIntFromScanner(scan,"");
                 if(choice == 1)
                 {
                     getAllPizzaData();
                 }else if(choice == 2)
                 {
-                    System.out.println("Type the id of the pizza you want the information of");
-                    int id = scan.nextInt();
+                    int id = getNextIntFromScanner(scan,"Type the id of the pizza you want the information of");
                     getPizzaData(id);
                 }else
                 {
@@ -48,12 +47,11 @@ public class Index
                 System.out.println("2. Place an order");
                 System.out.println("3. Cancel an order");
                 System.out.println("4. Get delivery time for an order");
-                int choice = scan.nextInt();
+                int choice = getNextIntFromScanner(scan,"");
                 if(choice == 1)
                 {
                     //get order data
-                    System.out.println("What is the id of the order you want the information of");
-                    int id = scan.nextInt();
+                    int id = getNextIntFromScanner(scan,"What is the id of the order you want the information of");
                     getOrderData(id);
                 }else if(choice == 2)
                 {
@@ -68,14 +66,11 @@ public class Index
                     String country;
                     String zipcode;
 
-
-                    System.out.println("How many pizzas do you want?");
-                    int amount = scan.nextInt();
+                    int amount = getNextIntFromScanner(scan,"How many pizzas do you want?");
                     pizzas = new int[amount];
                     for(int i = 1; i <= amount;i++)
                     {
-                        System.out.println("Which menu id will pizza " + i + " have?");
-                        pizzas[i - 1] = scan.nextInt();
+                        pizzas[i - 1] = getNextIntFromScanner(scan,"Which menu id will pizza " + i + " have?");
                     }
 
 
@@ -92,8 +87,7 @@ public class Index
                     System.out.println("What will the payment type be?");
                     payment_type = scan.nextLine();
 
-                    System.out.println("What is your customer ID?");
-                    customerId = scan.nextInt();
+                    customerId = getNextIntFromScanner(scan,"What is your customer ID?");
 
                     System.out.println("In what street will it be delivered?");
                     street = scan.nextLine();
@@ -114,14 +108,12 @@ public class Index
                 }else if(choice == 3)
                 {
                     //cancel an order
-                    System.out.println("What is the id of the order you want to cancel");
-                    int id = scan.nextInt();
+                    int id = getNextIntFromScanner(scan,"What is the id of the order you want to cancel");
                     cancelOrder(id);
                 }else if(choice == 4)
                 {
                     //get ETA of an order
-                    System.out.println("What is the id of the order you want the delivery time of");
-                    int id = scan.nextInt();
+                    int id = getNextIntFromScanner(scan,"What is the id of the order you want the delivery time of");
                     getOrderETA(id);
                 }else
                 {
@@ -175,7 +167,7 @@ public class Index
     public static void cancelOrder(int id)
     {
         try {
-            getData(serverUrl + "/order/cancel/" + id, "PUT");
+            System.out.println(getData(serverUrl + "/order/cancel/" + id, "PUT"));
         }catch (IOException e) {
             System.out.println("Error connecting to the server");
         }
@@ -206,7 +198,6 @@ public class Index
 
             String text = data.toString();
 
-            System.out.println(text);
             connection.setDoOutput(true);
             OutputStream os = connection.getOutputStream();
             os.write(data.toString().getBytes("UTF-8"));
@@ -248,6 +239,24 @@ public class Index
             output += "Error: " + responseCode + ", ";
         }
         output += response;
+        return output;
+    }
+
+    public static int getNextIntFromScanner(Scanner scan,String message)
+    {
+        boolean valid = false;
+        int output = 0;
+        while(!valid)
+        {
+            System.out.println(message);
+            valid = true;
+            try {
+                output = Integer.parseInt(scan.nextLine());
+            } catch (NumberFormatException e) {
+                valid = false;
+                System.out.println("Input is invalid try again");
+            }
+        }
         return output;
     }
 }
