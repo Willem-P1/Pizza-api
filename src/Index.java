@@ -6,6 +6,10 @@ import java.net.URLEncoder;
 import java.util.Scanner;
 import org.json.JSONObject;
 
+
+//compile with: javac -cp ".;json-20210307.jar" Index.java
+//run with: java -cp ".;json-20210307.jar" Index
+//jar is dowloaded from: https://github.com/stleary/JSON-java
 public class Index
 {
     public static String serverUrl = "http://localhost:";
